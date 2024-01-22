@@ -55,12 +55,17 @@ jobs:
         with:
           name: build_artifact
 
+      - name: Make dir build
+        shell: bash
+        run: mkdir build
+
+      - name: Make dir build/libs
+        shell: bash
+        run: mkdir build/libs
+
       - name: Move jar to build/libs
         shell: bash
-        run: |
-          mkdir build \
-          mkdir build/libs \
-          mv app.jar build/libs/app.jar
+        run: mv app.jar build/libs/app.jar
 
       - name: Copy and Paste jar file to EC2
         uses: appleboy/scp-action@master

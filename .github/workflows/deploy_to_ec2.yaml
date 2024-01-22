@@ -44,6 +44,7 @@ jobs:
 
   deploy:
     if: ${{ github.repository_owner == 'WhaleAjang' }}
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch

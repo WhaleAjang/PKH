@@ -55,13 +55,20 @@ jobs:
         with:
           name: build_artifact
 
+      - name: Move jar to build/libs
+        shell: bash
+        run: |
+          mkdir build
+          mkdir build/libs
+          mv app.jar build/libs/app.jar
+
       - name: Copy and Paste jar file to EC2
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          source: "app.jar, Dockerfile, docker-compose.yaml, run.sh, nginx"
+          source: "build/libs/app.jar, Dockerfile, docker-compose.yaml, run.sh, nginx"
           target: /home/${{ secrets.USERNAME }}/
 
       - name: Deploy via run script
